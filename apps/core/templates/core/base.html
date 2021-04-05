@@ -24,16 +24,28 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Publicaciones
+                    <a class="nav-link" href="{% url 'core:home' %}">Publicaciones
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
+                {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="#">Mis publicaciones</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mi perfil</a>
+                    <a class="nav-link" href="{% url 'usuario:profile' %}">Mi perfil</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Salir</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'usuario:signup' %}">Regístrate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Inicia sesión</a>
+                </li>
+                {% endif %}
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
