@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
+
+<style>
+    .errorlist {
+        color: red;
+    }
+
+    label {
+        display: none
+    }
+</style>
+
+<main role="main">
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-9 mx-auto mb-5">
+                <div class="row">
+                    <!-- Previa del foto_perfil -->
+                    <div class="col-md-2">
+                        {% if request.user.foto_perfil %}
+                        <img src="{{request.user.foto_perfil.url}}" class="img-fluid">
+                        {% else %}
+                        {% load static %}
+                        <img src="{% static 'registration/img/empty-foto_perfil.jpg' %}" class="img-fluid">
+                        {% endif %}
+                    </div>
+                    <!-- Formulario -->
+                    <div class="col-md-10">
+                        <h3>Perfil</h3>
+                        <!-- La siguiente línea es el html crudo para el campo 'foto_perfil' -->
+                        <p>{{ request.user.username }}</p>
+                        <p>{{ request.user.email }}</p>
+                        <p>{{ request.user.last_name }}</p>
+                        <p>{{ request.user.identification }}</p>
+                        <p>{{ request.user.telephone }}</p>
+                        <p>{{ request.user.fecha_nacimiento }}</p>
+                        <p>{{ request.user.country }}</p>
+                        <p>{{ request.user.city }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
