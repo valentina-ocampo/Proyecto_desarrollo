@@ -14,11 +14,10 @@ class UserCreationFormWithOtherFields(UserCreationForm):
             'email',
             'first_name',
             'last_name',
-            'genre',
-            'identification',
-            'telephone',
-            'country',
-            'city',
+            'genero',
+            'telefono',
+            'pais',
+            'ciudad',
         ]
 
     def __init__(self, *args, **kwargs):
@@ -35,7 +34,6 @@ class UserCreationFormWithOtherFields(UserCreationForm):
         self.fields['email'].widget.attrs['placeholder'] = 'Correo electrónico'
         self.fields['first_name'].widget.attrs['placeholder'] = 'Nombre'
         self.fields['last_name'].widget.attrs['placeholder'] = 'Apellido'
-        self.fields['identification'].widget.attrs['placeholder'] = 'Identificación'
-        self.fields['telephone'].widget.attrs['placeholder'] = 'Teléfono'
-        self.fields['country'].widget.attrs['placeholder'] = 'País'
-        self.fields['city'].widget.attrs['placeholder'] = 'Ciudad'
+        self.fields['telefono'].widget.attrs['placeholder'] = 'Teléfono'
+        self.fields['pais'].widget.attrs['placeholder'] = 'País'
+        self.fields['ciudad'].widget.attrs['placeholder'] = 'Ciudad'

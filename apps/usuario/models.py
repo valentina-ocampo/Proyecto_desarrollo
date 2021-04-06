@@ -6,22 +6,21 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
 
-    genres_types = (
+    tipos_genero = (
         ('M', 'Masculino'),
         ('F', 'Femenino')
     )
     
     foto_perfil = models.ImageField(upload_to="profiles", null=True, blank=True)
-    genre = models.CharField(max_length=1, choices=genres_types, verbose_name='Género')
-    balance = models.PositiveIntegerField(default=0, verbose_name='Saldo')
-    telephone = models.CharField(max_length=10, verbose_name='Teléfono')
-    country = models.CharField(max_length=20, verbose_name='País')
-    city = models.CharField(max_length=30, verbose_name='Ciudad')
+    genero = models.CharField(max_length=1, choices=tipos_genero, verbose_name='Género')
+    telefono = models.CharField(max_length=10, verbose_name='Teléfono')
+    pais = models.CharField(max_length=20, verbose_name='País')
+    ciudad = models.CharField(max_length=30, verbose_name='Ciudad')
 
     def __str__(self):
         return f'{super().first_name} {super().last_name}'
 
 
 class Seguidores(models.Model):
-    Usuario_seguido = models.ForeignKey(User, on_delete=models.CASCADE)
-    Seguidor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Seguidor')
+    usuario_seguido = models.ForeignKey(User, on_delete=models.CASCADE)
+    seguidor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Seguidor')
