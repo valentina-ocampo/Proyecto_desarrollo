@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}{{blog.titulo}}{% endblock %}
+
+{% block content %}
+
+<main role="main">
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-9 mx-auto">
+                <h2 class="section-heading mb-4">{{blog.titulo}}</h2>
+                <div>
+                    {{blog.contenido|safe}}
+                    {% if request.user.is_staff %}
+                    <p><a href="{% url 'blogs:update_blog' blog.id blog.titulo|slugify %}">Editar</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
