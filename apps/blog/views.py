@@ -18,6 +18,11 @@ class ListBlogsView(ListView):
         return Blog.objects.filter(usuario=self.request.user)
 
 
+class ListAllBlogsView(ListView):
+    model = Blog
+    template_name = 'blog/blogs_all.html'
+    context_object_name = 'blogs'
+
 class CreateBlogView(CreateView):
     model = Blog
     form_class = BlogForm
@@ -38,7 +43,7 @@ class UpdateBlogView(UpdateView):
     model = Blog
     form_class = BlogForm
     template_name_suffix = '_update_form'
-    success_url = reverse_lazy('blogs:update_blog')
+    success_url = reverse_lazy('blogs:list_blogs')
 
     def get_success_url(self):
         messages.success(self.request, 'Blog actualizado satisfactoriamente.')
