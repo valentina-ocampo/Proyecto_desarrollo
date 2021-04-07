@@ -65,3 +65,10 @@ def CreateFavoritosView(request, blog_id):
     nuevo_favorito = Favoritos(usuario=usuario, pagina=blog)
     nuevo_favorito.save()
     return HttpResponseRedirect(reverse('blogs:list_all_blogs'))
+
+
+class ListFavoritosView(ListView):
+    model = Favoritos
+    template_name = 'blog/favoritos.html'
+    context_object_name = 'favoritos'
+
