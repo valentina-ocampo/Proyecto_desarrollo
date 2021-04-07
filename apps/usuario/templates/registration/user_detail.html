@@ -39,10 +39,13 @@
                         <p>{{ request.user.telefono }}</p>
                         <p>{{ request.user.fecha_nacimiento }}</p>
                         <p>{{ request.user.pais }}</p>
-                        <p>{{ request.user.ciudad }}</p>
+                        <p>{{ request.user.ciudad }}</p>   
                     </div>
                     <div>
-                        <a class="nav-link" href="{% url 'usuario:edit_profile' request.user.id %}"><i>Editar datos</i></a>
+                        <form action="" method="post">{% csrf_token %}
+                            <a class="btn btn-primary" href="{% url 'usuario:edit_profile' request.user.id %}">Editar datos</a>
+                            <a href="/accounts/userDelete/{{request.user.identificacion}}" class="btn btn-danger" onclick="return confirm('Esta seguro ?')">Eliminar Datos</a>
+                        </form>
                     </div>
                 </div>
             </div>
