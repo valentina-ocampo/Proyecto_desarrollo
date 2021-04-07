@@ -14,7 +14,7 @@ class Blog(models.Model):
     reportada = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
+        return self.titulo
 
 
 class Favoritos(models.Model):

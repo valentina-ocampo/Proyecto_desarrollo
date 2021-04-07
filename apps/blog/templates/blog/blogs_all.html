@@ -12,12 +12,22 @@
                 <h2 class="mb-4">{{blog.titulo}}</h2>
                 <div>
                     <p>{{blog.contenido|striptags|safe|truncatechars:"200"}}</p>
+                </div>
+                <div>
+                    <p>Por {{ blog.usuario.username }}</p>
+                </div>
+                <div>
                     <p><a href="{% url 'blogs:read_blog' blog.id blog.titulo|slugify %}">Leer más</a></p>
+                    {% if request.user.is_authenticated %}
+                    <p><a href="{% url 'blogs:create_favoritos' blog.id %}">Agregar a mis favoritos</a></p>
+                    {% endif %}
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </main>
+
+<script src="{% static 'blog/js/peticiones.js' %}"></script>
 
 {% endblock %}

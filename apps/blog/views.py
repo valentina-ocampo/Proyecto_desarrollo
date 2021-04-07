@@ -1,10 +1,10 @@
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.contrib import messages
+from django.http import JsonResponse, HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
+from .models import Blog, Favoritos
+from ..usuario.models import User
 from .forms import BlogForm
-from .models import Blog
-from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -57,3 +57,11 @@ class DeleteBlogView(DeleteView):
     def get_success_url(self):
         messages.success(self.request, 'Blog eliminado satisfactoriamente.')
         return super().get_success_url()
+
+
+def CreateFavoritosView(request, blog_id):
+    usuario = User.objects.get(pk=request.user.id)
+    blog = Blog.objects.get(pk=blog_id)
+    nuevo_favorito = Favoritos(usuario=usuario, pagina=blog)
+    nuevo_favorito.save()
+    return HttpResponseRedirect(reverse('blogs:list_all_blogs'))
