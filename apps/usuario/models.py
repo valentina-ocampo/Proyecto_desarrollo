@@ -12,6 +12,7 @@ class User(AbstractUser):
     )
     
     foto_perfil = models.ImageField(upload_to="profiles", null=True, blank=True)
+    identificacion = models.CharField(max_length=12, verbose_name='Identificación')
     genero = models.CharField(max_length=1, choices=tipos_genero, verbose_name='Género')
     telefono = models.CharField(max_length=10, verbose_name='Teléfono')
     pais = models.CharField(max_length=20, verbose_name='País')

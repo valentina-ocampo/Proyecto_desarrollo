@@ -15,6 +15,7 @@ class UserCreationFormWithOtherFields(UserCreationForm):
             'first_name',
             'last_name',
             'genero',
+            'identificacion',
             'telefono',
             'pais',
             'ciudad',
@@ -34,6 +35,7 @@ class UserCreationFormWithOtherFields(UserCreationForm):
         self.fields['email'].widget.attrs['placeholder'] = 'Correo electrónico'
         self.fields['first_name'].widget.attrs['placeholder'] = 'Nombre'
         self.fields['last_name'].widget.attrs['placeholder'] = 'Apellido'
+        self.fields['identificacion'].widget.attrs['placeholder'] = 'Identificación'
         self.fields['telefono'].widget.attrs['placeholder'] = 'Teléfono'
         self.fields['pais'].widget.attrs['placeholder'] = 'País'
         self.fields['ciudad'].widget.attrs['placeholder'] = 'Ciudad'
