@@ -33,13 +33,16 @@
                         <!-- La siguiente línea es el html crudo para el campo 'foto_perfil' -->
                         <p>{{ request.user.username }}</p>
                         <p>{{ request.user.email }}</p>
-                        <p>{{ request.user.fisrt_name }}</p>
+                        <p>{{ request.user.first_name }}</p>
                         <p>{{ request.user.last_name }}</p>
                         <p>{{ request.user.identificacion }}</p>
                         <p>{{ request.user.telefono }}</p>
                         <p>{{ request.user.fecha_nacimiento }}</p>
                         <p>{{ request.user.pais }}</p>
                         <p>{{ request.user.ciudad }}</p>
+                    </div>
+                    <div>
+                        <a class="nav-link" href="{% url 'usuario:edit_profile' request.user.id %}"><i>Editar datos</i></a>
                     </div>
                 </div>
             </div>
