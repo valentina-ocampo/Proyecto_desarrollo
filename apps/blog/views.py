@@ -1,6 +1,6 @@
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.contrib import messages
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from .models import Blog, Favoritos
 from ..usuario.models import User
@@ -72,3 +72,5 @@ class ListFavoritosView(ListView):
     template_name = 'blog/favoritos.html'
     context_object_name = 'favoritos'
 
+    def get_queryset(self):
+        return self.model.objects.filter(usuario=self.request.user)
