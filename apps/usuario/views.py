@@ -3,6 +3,7 @@ from django.views.generic import CreateView, TemplateView, UpdateView
 from django.contrib import messages
 from django.urls import reverse_lazy
 from .models import User
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -28,3 +29,9 @@ class UserEditView(UpdateView):
     def get_success_url(self):
         messages.success(self.request, 'Usuario actualizado satisfactoriamente.')
         return super().get_success_url()
+
+def userDelete(request, userId):
+    userdel = User.objects.get(identificacion=userId)
+    userdel.delete()
+    results = User.objects.all()
+    return render(request, 'core/home.html', {"user": results})
