@@ -5,6 +5,7 @@ from django.urls import reverse, reverse_lazy
 from .models import Blog, Favoritos
 from ..usuario.models import User
 from .forms import BlogForm
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -75,3 +76,24 @@ class ListFavoritosView(ListView):
 
     def get_queryset(self):
         return self.model.objects.filter(usuario=self.request.user)
+
+
+class DeleteReportView(DeleteView):
+    model = Blog
+    success_url = reverse_lazy('blogs:report_list_blogs')
+
+    def get_success_url(self):
+        messages.success(self.request, 'Blog eliminado satisfactoriamente.')
+        return super().get_success_url()
+
+def reportBlog(request, blogId):
+    blogReport = Blog.objects.get(id=blogId)
+    blogReport.reportada = True
+    blogReport.save()
+    messages.success(request, 'Blog reportado satisfactoriamente')
+    return HttpResponseRedirect(reverse('blogs:list_all_blogs'))
+
+def reportListBlog(request):
+    blogsReport = Blog.objects.filter(reportada=True)
+    print(blogsReport)
+    return render(request, 'blog_list_report.html', {"blogsReport": blogsReport})
