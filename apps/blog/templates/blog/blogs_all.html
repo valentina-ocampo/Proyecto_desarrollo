@@ -5,17 +5,31 @@
 {% block content %}
 
 <main role="main">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <p class="p-2 confirmation bg-success text-white">{{ message }}</p>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <div class="container mb-4">
         {% for blog in blogs %}
+        {% if not blog.reportada %}
         <div class="row mt-3">
             <div class="col-md-9 mx-auto">
                 <h2 class="mb-4">{{blog.titulo}}</h2>
                 <div>
                     <p>{{blog.contenido|striptags|safe|truncatechars:"200"}}</p>
-                    <p><a href="{% url 'blogs:read_blog' blog.id blog.titulo|slugify %}">Leer más</a></p>
+                    <p><a href="{% url 'blogs:read_blog' blog.id blog.titulo|slugify %}">Leer más</a>
+                    |  <a href="{% url 'blogs:report_blog' blog.id  %}" class="link-danger" onclick="return confirm('Esta seguro en reportar {{ blog.titulo}}?')">Reportar</a>
+                    {% if request.user.is_staff %}
+                    |  <a href="{% url 'blogs:update_blog' blog.id blog.titulo|slugify %}">Editar</a>
+                    {% endif %}
+                    </p>
                 </div>
             </div>
         </div>
+        {% endif %}
         {% endfor %}
     </div>
 </main>
