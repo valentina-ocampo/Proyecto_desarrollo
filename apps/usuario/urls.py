@@ -2,7 +2,7 @@ from django.urls import path
 from .views import SignUpView, UserDetailView, UserEditView, userDelete, SeguirUsuarioView, VerSiguiendoView, VerSeguidoresView
 
 # Create your urls here.
-
+ 
 
 app_name = 'usuario'
 

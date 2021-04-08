@@ -42,6 +42,7 @@ def SeguirUsuarioView(request, user_id):
     usuario_seguido = User.objects.get(id=user_id)
     nuevo_seguidor = Seguidores(usuario_seguido=usuario_seguido, seguidor=seguidor)
     nuevo_seguidor.save()
+    messages.success(request, 'Ahora sigues a')
     return HttpResponseRedirect(reverse('blogs:list_all_blogs'))
 
 class VerSiguiendoView(ListView):

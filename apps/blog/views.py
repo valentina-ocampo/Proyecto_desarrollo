@@ -64,6 +64,7 @@ def CreateFavoritosView(request, blog_id):
     blog = Blog.objects.get(pk=blog_id)
     nuevo_favorito = Favoritos(usuario=usuario, pagina=blog)
     nuevo_favorito.save()
+    messages.success(request, f'Agregaste el blog {blog.titulo} a tus favoritos.')
     return HttpResponseRedirect(reverse('blogs:list_all_blogs'))
 
 

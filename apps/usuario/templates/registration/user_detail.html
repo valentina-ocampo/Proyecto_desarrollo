@@ -40,8 +40,6 @@
                         <p>{{ request.user.fecha_nacimiento }}</p>
                         <p>{{ request.user.pais }}</p>
                         <p>{{ request.user.ciudad }}</p>
-                        <p><a href="{% url 'usuario:ver_siguiendo' %}">Siguiendo</a></p>
-                        <p><a href="{% url 'usuario:ver_seguidores' %}">Seguidores</a></p>
                     </div>
                     <div>
                         <form action="" method="post">{% csrf_token %}
