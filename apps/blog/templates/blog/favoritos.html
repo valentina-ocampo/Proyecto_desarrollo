@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Tus favoritos{% endblock %}
+
+{% block content %}
+
+<main role="main">
+    <div class="container mb-4">
+        {% for favorito in favoritos %}
+        <div class="row mt-3">
+            <div class="col-md-9 mx-auto">
+                <h2 class="mb-4">{{favorito.pagina.titulo}}</h2>
+                <div>
+                    <p>{{favorito.pagina.contenido|striptags|safe|truncatechars:"200"}}</p>
+                    <p>Por {{ favorito.pagina.usuario.username }}
+                        | <a href="{% url 'usuario:seguir_usuario' favorito.pagina.usuario.id %}">Seguir</a>
+                    </p>
+                    <p><a href="{% url 'blogs:read_blog' favorito.id favorito.pagina.titulo|slugify %}">Leer más</a>
+                        | <a href="#">Eliminar de favoritos</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+{% endblock %}

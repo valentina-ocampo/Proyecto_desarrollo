@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Siguiendo{% endblock %}
+
+{% block content %}
+
+<main role="main">
+    <div class="container mb-4">
+        <h2 class="mb-4">Usuarios a quienes sigues.</h2>
+        {% for usuario in siguiendo %}
+        <div class="row mt-3">
+            <div class="col-md-9 mx-auto">
+                <p>{{usuario.usuario_seguido.username}}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+{% endblock %}
