@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Reportados{% endblock %}
+
+{% block content %}
+<div>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <p class="p-2 confirmation bg-success text-white">{{ message }}</p>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% for blog in blogsReport %}
+        {% if blog.reportada %}
+            <div class="row mt-3">
+                <div class="col-md-9 mx-auto">
+                    <h2 class="mb-4">{{blog.titulo}}</h2>
+                    <div>
+                        <p>{{blog.contenido|striptags|safe|truncatechars:"200"}}</p>
+                        <p><a href="{% url 'blogs:read_blog' blog.id blog.titulo|slugify %}">Leer más</a>
+                        |  <a href="{% url 'blogs:update_blog' blog.id blog.titulo|slugify %}">Editar</a>
+                        |  <a href="{% url 'blogs:delete_blog_reporter' blog.id blog.titulo|slugify %}">Borrar</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock%}

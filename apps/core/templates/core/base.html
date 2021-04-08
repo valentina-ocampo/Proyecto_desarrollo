@@ -15,7 +15,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="{% url 'core:home' %}">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
             aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,6 +30,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'blogs:list_blogs' %}">Mis blogs</a>
                 </li>
+                {% if request.user.is_staff %}
+                <li> <a class="nav-link" href="{% url 'blogs:report_list_blogs'%}">Reportes</a> </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'blogs:list_blogs' %}">Favoritos</a>
                 </li>

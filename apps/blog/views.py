@@ -1,10 +1,12 @@
 from django.views.generic.list import ListView
+from django.http import JsonResponse, HttpResponseRedirect
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib import messages
 from .forms import BlogForm
 from .models import Blog
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -57,3 +59,24 @@ class DeleteBlogView(DeleteView):
     def get_success_url(self):
         messages.success(self.request, 'Blog eliminado satisfactoriamente.')
         return super().get_success_url()
+
+
+class DeleteReportView(DeleteView):
+    model = Blog
+    success_url = reverse_lazy('blogs:report_list_blogs')
+
+    def get_success_url(self):
+        messages.success(self.request, 'Blog eliminado satisfactoriamente.')
+        return super().get_success_url()
+
+def reportBlog(request, blogId):
+    blogReport = Blog.objects.get(id=blogId)
+    blogReport.reportada = True
+    blogReport.save()
+    messages.success(request, 'Blog reportado satisfactoriamente')
+    return HttpResponseRedirect(reverse('blogs:list_all_blogs'))
+
+def reportListBlog(request):
+    blogsReport = Blog.objects.filter(reportada=True)
+    print(blogsReport)
+    return render(request, 'blog_list_report.html', {"blogsReport": blogsReport})
