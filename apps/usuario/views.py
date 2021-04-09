@@ -12,7 +12,7 @@ from django.shortcuts import render
 class SignUpView(CreateView):
     form_class = UserCreationFormWithOtherFields
     template_name = 'registration/signup.html'
-    success_url = reverse_lazy('core:home')
+    success_url = reverse_lazy('blogs:list_all_blogs')
 
     def get_success_url(self):
         messages.success(self.request, 'Usuario creado satisfactoriamente.')
@@ -25,7 +25,7 @@ class UserEditView(UpdateView):
     model = User
     form_class = UserCreationFormWithOtherFields
     template_name = 'registration/user_update_form.html'
-    success_url = reverse_lazy('core:home')
+    success_url = reverse_lazy('blogs:list_all_blogs')
 
     def get_success_url(self):
         messages.success(self.request, 'Usuario actualizado satisfactoriamente.')

@@ -127,5 +127,5 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'usuario.User'
 
 # Auth redirect
-LOGIN_REDIRECT_URL = 'core:home'
-LOGOUT_REDIRECT_URL = 'core:home'
+LOGIN_REDIRECT_URL = 'blogs:list_all_blogs'
+LOGOUT_REDIRECT_URL = 'blogs:list_all_blogs'

@@ -25,11 +25,10 @@ class ListAllBlogsView(ListView):
     context_object_name = 'blogs'
 
     def get(self, request, *args, **kwargs):
-        if self.request.user != "AnonymousUser":
+        if not self.request.user.is_anonymous:
             self.extra_context = { "all_favoritos": self.obtener_ids_favoritos(Favoritos.objects.filter(usuario=self.request.user)),
                                    "all_seguidos": self.obtener_ids_seguidos(Seguidores.objects.filter(seguidor=self.request.user))}
             print(self.extra_context)
-        print(self.request.user)
         return super().get(request, *args, **kwargs)
 
     def obtener_ids_favoritos(self, lista_favoritos):
