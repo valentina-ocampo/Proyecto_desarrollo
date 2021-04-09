@@ -16,10 +16,10 @@
                             <th scope="row"></th>
                             <td width="15%">
                                 {% if request.user.foto_perfil %}
-                                <img width="70" height="70"  src="{{request.user.foto_perfil.url}}" class="img-fluid">
+                                <img width="70" height="70" src="{{request.user.foto_perfil.url}}" class="img-fluid">
                                 {% else %}
                                 {% load static %}
-                                <img width="70" height="70"  src="{% static 'registration/img/empty-foto_perfil.jpg' %}" class="img-fluid">
+                                <img width="70" height="70" src="{% static 'registration/img/empty-foto_perfil.jpg' %}" class="img-fluid">
                                 {% endif %}
                             </td>
                             <td>
