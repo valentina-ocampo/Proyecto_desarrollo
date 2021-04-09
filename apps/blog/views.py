@@ -95,5 +95,14 @@ def reportBlog(request, blogId):
 
 def reportListBlog(request):
     blogsReport = Blog.objects.filter(reportada=True)
-    print(blogsReport)
     return render(request, 'blog_list_report.html', {"blogsReport": blogsReport})
+
+
+class ListBuscarBlogsView(ListView):
+    model = Blog
+    template_name = 'blog/blogs_all.html'
+    context_object_name = 'blogs'
+
+    def get_queryset(self):
+        texto_busqueda = self.request.GET.get('texto_busqueda')
+        return self.model.objects.filter(titulo__icontains=texto_busqueda)
