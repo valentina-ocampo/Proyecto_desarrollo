@@ -9,6 +9,7 @@
         <h2 class="mb-4">Tus seguidores.</h2>
         <div class="row mt-3">
             <div class="col-md-9 mx-auto">
+                {% if seguidores %}
                 <table class="table table-hover">
                     <tbody>
                     {% for usuario in seguidores %}
@@ -29,7 +30,10 @@
                         </tr>
                     {% endfor %}
                     </tbody>
-                </table>                
+                </table>  
+                {% else %}
+                    <h1>Por ahora nadie te sigue.</h1>              
+                {% endif %}
             </div>
         </div>  
     </div>
