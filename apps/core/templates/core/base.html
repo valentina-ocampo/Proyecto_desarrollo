@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock %}</title>
     <link href="{% static 'core/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="icon" type="image/jpg" href="{% static '/core/media/icon.png' %}">
 </head>
 
 <body>
@@ -51,8 +52,9 @@
                 </li>
                 {% endif %}
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Buscar por título">
+            <form action="{% url 'blogs:buscar_blogs' %}" method="get" class="form-inline my-2 my-lg-0">
+                {% csrf_token %}
+                <input class="form-control mr-sm-2" name='texto_busqueda' type="text" placeholder="Buscar por título">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
             </form>
         </div>

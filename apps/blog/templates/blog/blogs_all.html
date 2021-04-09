@@ -6,6 +6,15 @@
 
 <main role="main">
     <div class="container mb-4">
+
+        {% if not blogs %}
+        <div class="container col-md-10">
+            <div style="padding-top:50px; text-align:center;">
+                <h1>No existen blogs.</h1>
+            </div>
+        </div>
+        {% endif %}
+
         {% for blog in blogs %}
         {% if not blog.reportada %}
         <div class="container">
@@ -15,16 +24,26 @@
                 <hr class="my-4">
                 <p>Por {{ blog.usuario.username }}
                     {% if request.user.is_authenticated %}
-                        <a class="btn btn-outline-success btn-sm" role="button" href="{% url 'usuario:seguir_usuario' blog.usuario.id %}"><i class="fas fa-user-plus"></i> Seguir</a>
+                    <a class="btn btn-outline-success btn-sm" role="button"
+                        href="{% url 'usuario:seguir_usuario' blog.usuario.id %}"><i class="fas fa-user-plus"></i>
+                        Seguir</a>
                     {% endif %}
                 </p>
                 <p class="lead">
-                    <a class="btn btn-info btn-lg" role="button" href="{% url 'blogs:read_blog' blog.id blog.titulo|slugify %}"><i class="fab fa-readme"></i> Leer más</a>
+                    <a class="btn btn-info btn-lg" role="button"
+                        href="{% url 'blogs:read_blog' blog.id blog.titulo|slugify %}"><i class="fab fa-readme"></i>
+                        Leer más</a>
                     {% if request.user.is_authenticated %}
-                    <a class="btn btn-secondary btn-lg" role="button" href="{% url 'blogs:create_favoritos' blog.id %}"><i class="fas fa-heart"></i> Agregar a mis favoritos</a>
-                    <a class="btn btn-warning btn-lg" role="button" href="{% url 'blogs:report_blog' blog.id  %}" class="link-danger" onclick="return confirm('Esta seguro en reportar {{ blog.titulo}}?')"><i class="fas fa-bug"></i>  Reportar</a>
+                    <a class="btn btn-secondary btn-lg" role="button"
+                        href="{% url 'blogs:create_favoritos' blog.id %}"><i class="fas fa-heart"></i> Agregar a mis
+                        favoritos</a>
+                    <a class="btn btn-warning btn-lg" role="button" href="{% url 'blogs:report_blog' blog.id  %}"
+                        class="link-danger" onclick="return confirm('Esta seguro en reportar {{ blog.titulo}}?')"><i
+                            class="fas fa-bug"></i> Reportar</a>
                     {% if request.user.is_staff %}
-                    <a class="btn btn-primary btn-lg" role="button"href="{% url 'blogs:update_blog' blog.id blog.titulo|slugify %}"><i class="fas fa-edit"></i> Editar</a>
+                    <a class="btn btn-primary btn-lg" role="button"
+                        href="{% url 'blogs:update_blog' blog.id blog.titulo|slugify %}"><i class="fas fa-edit"></i>
+                        Editar</a>
                     {% endif %}
                     {% endif %}
                 </p>
