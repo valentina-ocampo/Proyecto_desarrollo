@@ -13,40 +13,65 @@
     }
 </style>
 
+
+
 <main role="main">
     <div class="container">
         <div class="row mt-3">
             <div class="col-md-9 mx-auto mb-5">
-                <div class="row">
-                    <!-- Previa del foto_perfil -->
-                    <div class="col-md-2">
-                        {% if request.user.foto_perfil %}
-                        <img src="{{request.user.foto_perfil.url}}" class="img-fluid">
-                        {% else %}
-                        {% load static %}
-                        <img src="{% static 'registration/img/empty-foto_perfil.jpg' %}" class="img-fluid">
-                        {% endif %}
+                <div class="row ">
+                    <div class="card mb-5 col-md-9">
+                        <h3 class="card-header">Datos de Usuario</h3>
+                        <div class="card-body">
+                            <h5 class="card-title">Nombre de Usuario:</h5>
+                            <h6 class="card-subtitle text-muted">{{ request.user.username }}</h6>
+                        </div>
+                        <div >
+                            {% if request.user.foto_perfil %}
+                            <img src="{{request.user.foto_perfil.url}}" class="img-fluid">
+                            {% else %}
+                            {% load static %}
+                            <img src="{% static 'registration/img/empty-foto_perfil.jpg' %}" class="img-fluid">
+                            {% endif %}
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <h6 class="card-title">Correo Electronico</h6>
+                                        <h7 class="card-subtitle text-muted">{{ request.user.email }}</h7>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h6 class="card-title">Nombre:</h6>
+                                        <h7 class="card-subtitle text-muted">{{ request.user.first_name }} {{ request.user.last_name }}</h7>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h6 class="card-title">Telefono:</h6>
+                                        <h7 class="card-subtitle text-muted">{{ request.user.telefono }}</h7>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h6 class="card-title">Fecha de nacimiento:</h6>
+                                        <h7 class="card-subtitle text-muted">{{ request.user.fecha_nacimiento }}</h7>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h6 class="card-title">País:</h6>
+                                        <h7 class="card-subtitle text-muted">{{ request.user.pais }}</h7>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h6 class="card-title">Ciudad:</h6>
+                                        <h7 class="card-subtitle text-muted">{{ request.user.ciudad }}</h7>
+                                    </li>
+                                </ul>
+                                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>  -->
+                            </div>
+                        </div>
                     </div>
-                    <!-- Formulario -->
-                    <div class="col-md-10">
-                        <h3>Perfil</h3>
-                        <!-- La siguiente línea es el html crudo para el campo 'foto_perfil' -->
-                        <p>{{ request.user.username }}</p>
-                        <p>{{ request.user.email }}</p>
-                        <p>{{ request.user.first_name }}</p>
-                        <p>{{ request.user.last_name }}</p>
-                        <p>{{ request.user.identificacion }}</p>
-                        <p>{{ request.user.telefono }}</p>
-                        <p>{{ request.user.fecha_nacimiento }}</p>
-                        <p>{{ request.user.pais }}</p>
-                        <p>{{ request.user.ciudad }}</p>
-                    </div>
-                    <div>
-                        <form action="" method="post">{% csrf_token %}
-                            <a class="btn btn-primary" href="{% url 'usuario:edit_profile' request.user.id %}">Editar datos</a>
-                            <a href="/accounts/userDelete/{{request.user.identificacion}}" class="btn btn-danger" onclick="return confirm('Esta seguro ?')">Eliminar Datos</a>
-                        </form>
-                    </div>
+                </div>
+                <div>
+                    <form action="" method="post">{% csrf_token %}
+                        <a class="btn btn-primary" href="{% url 'usuario:edit_profile' request.user.id %}">Editar datos</a>
+                        <a href="/accounts/userDelete/{{request.user.identificacion}}" class="btn btn-danger" onclick="return confirm('Esta seguro ?')">Eliminar Datos</a>
+                    </form>      
                 </div>
             </div>
         </div>
