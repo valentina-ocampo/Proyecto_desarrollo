@@ -14,15 +14,18 @@
                     {% for usuario in siguiendo %}
                         <tr class="table-secondary">
                             <th scope="row"></th>
-                            <td class="col-md-1">
+                            <td width="15%">
                                 {% if request.user.foto_perfil %}
-                                <img src="{{request.user.foto_perfil.url}}" class="img-fluid">
+                                <img width="70" height="70"  src="{{request.user.foto_perfil.url}}" class="img-fluid">
                                 {% else %}
                                 {% load static %}
-                                <img src="{% static 'registration/img/empty-foto_perfil.jpg' %}" class="img-fluid">
+                                <img width="70" height="70"  src="{% static 'registration/img/empty-foto_perfil.jpg' %}" class="img-fluid">
                                 {% endif %}
                             </td>
-                            <td><p>{{usuario.usuario_seguido.username}}</p></td>
+                            <td>
+                                <p>{{usuario.usuario_seguido.username}}</p>
+                                <p>{{usuario.usuario_seguido.email}}</p>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
