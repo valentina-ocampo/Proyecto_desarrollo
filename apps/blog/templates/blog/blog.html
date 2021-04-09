@@ -4,18 +4,18 @@
 
 {% block content %}
 
-<main role="main">
+<main>
     <div class="container">
-        <div class="row mt-3">
-            <div class="col-md-9 mx-auto">
-                <h2 class="section-heading mb-4">{{blog.titulo}}</h2>
-                <div>
-                    {{blog.contenido|safe}}
-                    {% if request.user.is_staff %}
-                    <p><a href="{% url 'blogs:update_blog' blog.id blog.titulo|slugify %}">Editar</a></p>
-                    {% endif %}
-                </div>
+        <div class="jumbotron">
+            <h1 class="display-3">{{blog.titulo}}</h1>
+            <div>
+                {{blog.contenido|safe}}
             </div>
+            <hr class="my-4">
+            <p>Por {{ blog.usuario.username }}</p>
+            <p>
+                <a class="btn btn-primary btn-lg" role="button" href="{% url 'blogs:update_blog' blog.id blog.titulo|slugify %}"><i class="fas fa-edit"></i> Editar</a>
+            </p>
         </div>
     </div>
 </main>

@@ -7,18 +7,20 @@
 <main role="main">
     <div class="container mb-4">
         {% for favorito in favoritos %}
-        <div class="row mt-3">
-            <div class="col-md-9 mx-auto">
-                <h2 class="mb-4">{{favorito.pagina.titulo}}</h2>
-                <div>
-                    <p>{{favorito.pagina.contenido|striptags|safe|truncatechars:"200"}}</p>
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="display-3">{{favorito.pagina.titulo}}</h1>
+                <p class="lead">{{favorito.pagina.contenido|striptags|safe|truncatechars:"200"}}</p>
+                <hr class="my-4">
+                <p class="lead">
                     <p>Por {{ favorito.pagina.usuario.username }}
-                        | <a href="{% url 'usuario:seguir_usuario' favorito.pagina.usuario.id %}">Seguir</a>
+                        <a class="btn btn-outline-success btn-sm" role="button" href="{% url 'usuario:seguir_usuario' favorito.pagina.usuario.id %}"><i class="fas fa-user-plus"></i> Seguir</a>
                     </p>
-                    <p><a href="{% url 'blogs:read_blog' favorito.id favorito.pagina.titulo|slugify %}">Leer más</a>
-                        | <a href="#">Eliminar de favoritos</a>
+                    <p>
+                        <a class="btn btn-info btn-lg" role="button" href="{% url 'blogs:read_blog' favorito.id favorito.pagina.titulo|slugify %}"><i class="fab fa-readme"></i>  Leer más</a>
+                        <a class="btn btn-warning btn-lg" role="button" href="#"><i class="fas fa-heart-broken"></i> Eliminar de favoritos</a>
                     </p>
-                </div>
+                </p>
             </div>
         </div>
         {% endfor %}

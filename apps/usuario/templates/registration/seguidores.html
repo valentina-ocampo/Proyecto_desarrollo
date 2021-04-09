@@ -7,13 +7,28 @@
 <main role="main">
     <div class="container mb-4">
         <h2 class="mb-4">Tus seguidores.</h2>
-        {% for usuario in seguidores %}
         <div class="row mt-3">
             <div class="col-md-9 mx-auto">
-                <p>{{usuario.seguidor.username}}</p>
+                <table class="table table-hover">
+                    <tbody>
+                    {% for usuario in seguidores %}
+                        <tr class="table-secondary">
+                            <th scope="row"></th>
+                            <td class="col-md-1">
+                                {% if request.user.foto_perfil %}
+                                <img src="{{request.user.foto_perfil.url}}" class="img-fluid">
+                                {% else %}
+                                {% load static %}
+                                <img src="{% static 'registration/img/empty-foto_perfil.jpg' %}" class="img-fluid">
+                                {% endif %}
+                            </td>
+                            <td><p>{{usuario.seguidor.username}}</p></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>                
             </div>
-        </div>
-        {% endfor %}
+        </div>  
     </div>
 </main>
 
