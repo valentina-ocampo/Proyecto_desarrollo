@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SignUpView, UserDetailView, UserEditView, userDelete, SeguirUsuarioView, VerSiguiendoView, VerSeguidoresView
+from .views import SignUpView, UserDetailView, UserEditView, userDelete, SeguirUsuarioView, VerSiguiendoView, VerSeguidoresView, DeleteSeguidorView
 
 # Create your urls here.
  
@@ -14,4 +14,5 @@ urlpatterns = [
     path('seguir_usuario/<int:user_id>/', SeguirUsuarioView , name='seguir_usuario'),
     path('ver_siguiendo/', VerSiguiendoView.as_view() , name='ver_siguiendo'),
     path('ver_seguidores/', VerSeguidoresView.as_view() , name='ver_seguidores'),
+    path('dejar_seguir/<int:id_seguido>', DeleteSeguidorView , name='dejar_seguir'),
 ]

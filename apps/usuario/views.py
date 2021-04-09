@@ -42,7 +42,7 @@ def SeguirUsuarioView(request, user_id):
     usuario_seguido = User.objects.get(id=user_id)
     nuevo_seguidor = Seguidores(usuario_seguido=usuario_seguido, seguidor=seguidor)
     nuevo_seguidor.save()
-    messages.success(request, 'Ahora sigues a')
+    messages.success(request, f'Ahora sigues a {usuario_seguido.username}.')
     return HttpResponseRedirect(reverse('blogs:list_all_blogs'))
 
 class VerSiguiendoView(ListView):
@@ -60,3 +60,12 @@ class VerSeguidoresView(ListView):
 
     def get_queryset(self):
         return self.model.objects.filter(usuario_seguido=self.request.user)
+
+
+def DeleteSeguidorView(request, id_seguido):
+    seguidor = User.objects.get(id=request.user.id)
+    seguido = User.objects.get(id=id_seguido)
+    seguidores = Seguidores.objects.get(seguidor=seguidor, usuario_seguido=seguido)
+    seguidores.delete()
+    messages.success(request, f'Dejaste de seguir a {seguido.username}.')
+    return HttpResponseRedirect(reverse('blogs:list_all_blogs'))

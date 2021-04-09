@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from .models import Blog, Favoritos
-from ..usuario.models import User
+from ..usuario.models import User, Seguidores
 from .forms import BlogForm
 from django.shortcuts import render
 
@@ -23,6 +23,28 @@ class ListAllBlogsView(ListView):
     model = Blog
     template_name = 'blog/blogs_all.html'
     context_object_name = 'blogs'
+
+    def get(self, request, *args, **kwargs):
+        if self.request.user != "AnonymousUser":
+            self.extra_context = { "all_favoritos": self.obtener_ids_favoritos(Favoritos.objects.filter(usuario=self.request.user)),
+                                   "all_seguidos": self.obtener_ids_seguidos(Seguidores.objects.filter(seguidor=self.request.user))}
+            print(self.extra_context)
+        print(self.request.user)
+        return super().get(request, *args, **kwargs)
+
+    def obtener_ids_favoritos(self, lista_favoritos):
+        lista_ids = []
+        for favorito in lista_favoritos:
+            lista_ids.append(favorito.pagina.id)
+        return lista_ids
+
+    def obtener_ids_seguidos(self, lista_seguidos):
+        lista_ids = []
+        for seguido in lista_seguidos:
+            lista_ids.append(seguido.usuario_seguido.id)
+        return lista_ids
+
+
 
 class CreateBlogView(CreateView):
     model = Blog
@@ -106,3 +128,31 @@ class ListBuscarBlogsView(ListView):
     def get_queryset(self):
         texto_busqueda = self.request.GET.get('texto_busqueda')
         return self.model.objects.filter(titulo__icontains=texto_busqueda)
+
+    def get(self, request, *args, **kwargs):
+        if self.request.user != "AnonymousUser":
+            self.extra_context = { "all_favoritos": self.obtener_ids_favoritos(Favoritos.objects.filter(usuario=self.request.user)),
+                                   "all_seguidos": self.obtener_ids_seguidos(Seguidores.objects.filter(seguidor=self.request.user))}
+            print(self.extra_context)
+        print(self.request.user)
+        return super().get(request, *args, **kwargs)
+
+    def obtener_ids_favoritos(self, lista_favoritos):
+        lista_ids = []
+        for favorito in lista_favoritos:
+            lista_ids.append(favorito.pagina.id)
+        return lista_ids
+
+    def obtener_ids_seguidos(self, lista_seguidos):
+        lista_ids = []
+        for seguido in lista_seguidos:
+            lista_ids.append(seguido.usuario_seguido.id)
+        return lista_ids
+
+def DeleteFavoritoView(request, id_blog):
+    blog = Blog.objects.get(id=id_blog)
+    user = User.objects.get(id=request.user.id)
+    favorito = Favoritos.objects.get(pagina=blog, usuario=user)
+    favorito.delete()
+    messages.success(request, f'Eliminaste el blog {blog.titulo} de tus favoritos.')
+    return HttpResponseRedirect(reverse('blogs:list_all_blogs'))
