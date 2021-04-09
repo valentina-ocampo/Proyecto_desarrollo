@@ -6,6 +6,7 @@
 
 <main role="main">
     <div class="container mb-4">
+        {% if  favoritos %}
         {% for favorito in favoritos %}
         <div class="container">
             <div class="jumbotron">
@@ -18,12 +19,15 @@
                     </p>
                     <p>
                         <a class="btn btn-info btn-lg" role="button" href="{% url 'blogs:read_blog' favorito.id favorito.pagina.titulo|slugify %}"><i class="fab fa-readme"></i>  Leer más</a>
-                        <a class="btn btn-warning btn-lg" role="button" href="#"><i class="fas fa-heart-broken"></i> Eliminar de favoritos</a>
+                        <a class="btn btn-warning btn-lg" role="button" href="{% url 'blogs:eliminar_favorito' favorito.pagina_id %}"><i class="fas fa-heart-broken"></i> Eliminar de favoritos</a>
                     </p>
                 </p>
             </div>
         </div>
         {% endfor %}
+        {% else %}
+            <h1>No Tienes ningun blog marcado como favorito.</h1>
+        {% endif %}
     </div>
 </main>
 
